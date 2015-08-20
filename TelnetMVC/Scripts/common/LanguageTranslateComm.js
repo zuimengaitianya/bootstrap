@@ -19,7 +19,7 @@ function TranslateA(languageDict) {
         //	var myReg = /^[\u4e00-\u9fa5]+$/;//中文验证
         //	$.each(languageDict, function (a, b) {
         //		if (b.Key.indexOf(Skey) >= 0) {
-        //			Tvalue = b.Velue;
+        //			Tvalue = b.Value;
         //			return false;
         //		}
         //	})
@@ -34,14 +34,14 @@ function TranslateA(languageDict) {
             var myReg = /^[\u4e00-\u9fa5]+$/;//中文验证
             $.each(languageDict, function (a, b) {
                 if (Sorder == "") {
-                    if (b.Key.indexOf(Skey) >= 0) {
-                        Tvalue = b.Velue;
+                    if (b.Key == Skey) {
+                        Tvalue = b.Value;
                         return false;
                     }
                 }
                 else {
-                    if (b.Key.indexOf(Skey) >= 0 && b.Order == Sorder) {
-                        Tvalue = b.Velue;
+                    if (b.Key == Skey && b.Order == Sorder) {
+                        Tvalue = b.Value;
                         return false;
                     }
                 }
@@ -62,7 +62,7 @@ function TranslateA(languageDict) {
                         var isTanslate = false;
                         $.each(languageDict, function (a, b) {
                             if (b.Key == TempStr) {
-                                TempVal = TempVal + b.Velue;
+                                TempVal = TempVal + b.Value;
                                 TempStr = "";//还原临时字符串
                                 isTanslate = true;
                                 return false;
@@ -82,7 +82,7 @@ function TranslateA(languageDict) {
                     var isTanslate = false;
                     $.each(languageDict, function (a, b) {
                         if (b.Key == TempStr) {
-                            TempVal = TempVal + b.Velue;
+                            TempVal = TempVal + b.Value;
                             isTanslate = true;
                             TempStr = "";
                         }
@@ -108,7 +108,7 @@ function TranslateA(languageDict) {
                         var isTanslate = false;
                         $.each(languageDict, function (a, b) {
                             if (b.Key == TempStr) {
-                                TempVal = TempVal + b.Velue;
+                                TempVal = TempVal + b.Value;
                                 TempStr = "";//还原临时字符串
                                 isTanslate = true;
                                 return false;
@@ -128,7 +128,7 @@ function TranslateA(languageDict) {
                     var isTanslate = false;
                     $.each(languageDict, function (a, b) {
                         if (b.Key == TempStr) {
-                            TempVal = TempVal + b.Velue;
+                            TempVal = TempVal + b.Value;
                             isTanslate = true;
                             TempStr = "";
                         }
@@ -152,13 +152,13 @@ function TranslateChine() {
         var myReg = /^[\u4e00-\u9fa5]+$/;//中文验证
         $.each(dict, function (a, b) {
             if (Sorder == "") {
-                if (b.Velue.indexOf(Skey) >= 0) {
+                if (b.Value.indexOf(Skey) >= 0) {
                     Tvalue = b.Key;
                     return false;
                 }
             }
             else {
-                if (b.Velue.indexOf(Skey) >= 0 && b.Order == Sorder) {
+                if (b.Value.indexOf(Skey) >= 0 && b.Order == Sorder) {
                     Tvalue = b.Key;
                     return false;
                 }
@@ -172,7 +172,7 @@ function TranslateChine() {
         var myReg = /^[\u4e00-\u9fa5]+$/;//中文验证
         $.each(dict, function (a, b) {
 
-            if (b.Velue.indexOf(Skey) >= 0) {
+            if (b.Value.indexOf(Skey) >= 0) {
                 Tvalue = b.Key;
                 return false;
             }
@@ -205,7 +205,7 @@ function TranslateVersion(o, languageDict) {
                     if (b.tagName == "BUTTON") {
                         $.each(languageDict, function (a5, b5) {
                             if (b5.Key == b.textContent) {
-                                b.textContent = b5.Velue;
+                                b.textContent = b5.Value;
                                 return false;
                             }
                         })
@@ -215,7 +215,7 @@ function TranslateVersion(o, languageDict) {
 
                             $.each(languageDict, function (a4, b4) {
                                 if (b4.Key == b.value) {
-                                    b.value = b4.Velue;
+                                    b.value = b4.Value;
                                     return false;
                                 }
                             })
@@ -224,7 +224,7 @@ function TranslateVersion(o, languageDict) {
 
                             $.each(languageDict, function (a3, b3) {
                                 if (b3.Key == b.placeholder) {
-                                    b.placeholder = b3.Velue;
+                                    b.placeholder = b3.Value;
                                     return false;
                                 }
                             })
@@ -252,7 +252,7 @@ function TranslateVersion(o, languageDict) {
                             var isTanslate = false;
                             $.each(languageDict, function (a1, b1) {
                                 if (b1.Key == TempStr) {
-                                    TempVal = TempVal + b1.Velue;
+                                    TempVal = TempVal + b1.Value;
                                     TempStr = "";//还原临时字符串
                                     isTanslate = true;
                                     return false;
@@ -280,7 +280,7 @@ function TranslateVersion(o, languageDict) {
                         var isTanslate = false;
                         $.each(languageDict, function (a2, b2) {
                             if (b2.Key == TempStr) {
-                                TempVal = TempVal + b2.Velue;
+                                TempVal = TempVal + b2.Value;
                                 isTanslate = true;
                                 TempStr = "";
                                 return false;
@@ -336,7 +336,7 @@ String.prototype.Translate = function (Sorder) {
                     var isTanslate = false;
                     $.each(dict, function (a1, b1) {
                         if (b1.Key == TempStr) {
-                            TempVal = TempVal + b1.Velue;
+                            TempVal = TempVal + b1.Value;
                             TempStr = "";//还原临时字符串
                             isTanslate = true;
                             return false;
@@ -356,7 +356,15 @@ String.prototype.Translate = function (Sorder) {
                         TempStr = "";//还原临时字符串
                     }
                     else {
-                        TempVal = TempVal + Sval[i];
+                        if (Sval[i] == "，") {//标点符号转换
+                            TempVal = TempVal + ',';
+                        }
+                        else if (Sval[i] == "。") {
+                            TempVal = TempVal + '.';
+                        }
+                        else {
+                            TempVal = TempVal + Sval[i];
+                        }
                     }
                 }
             }
@@ -364,7 +372,7 @@ String.prototype.Translate = function (Sorder) {
                 var isTanslate = false;
                 $.each(dict, function (a2, b2) {
                     if (b2.Key == TempStr) {
-                        TempVal = TempVal + b2.Velue;
+                        TempVal = TempVal + b2.Value;
                         isTanslate = true;
                         TempStr = "";
                         return false;
@@ -383,6 +391,32 @@ String.prototype.Translate = function (Sorder) {
                     TempStr = "";
                 }
             }
+            return TempVal;
+        }
+        else {
+            return me.toString();
+        }
+    }
+}
+
+String.prototype.TranslateAll = function (Sorder) {
+    var me = this;
+    if (me != undefined) {
+        var language = $.cookie('language');
+        if (language == "English") {
+
+            var TempVal = "";
+            var TempStr = "";
+            var Sval = me.toString();
+
+            $.each(dict, function (a1, b1) {
+                if (b1.Key == Sval) {
+                    TempVal = b1.Value;
+                    isTanslate = true;
+                    return false;
+                }
+            })
+
             return TempVal;
         }
         else {
