@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>日期控件</title>
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <link rel="bootstrap icon" href="../Images/bootstrapicon.ico" />
+    <link href="../Content/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="../Content/bootstrap/bootstrap.selfstyle.css" rel="stylesheet" />-->
+    <link href="../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="../Scripts/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" />
+    <!--<link href="../Scripts/css/jquery.datetimepicker.css" rel="stylesheet" />-->
+    <script src="../Scripts/jquery-1.11.3.min.js"></script>
+    <!--<script src="../Content/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>-->
+    <!--<script src="../Scripts/jquery.datetimepicker.js"></script>-->
+    <script src="../Scripts/jquery-ui-1.8.20.min.js"></script>
+    <script src="../Scripts/My97DatePicker/WdatePicker.js"></script>
+
+</head>
+<body>
+    开始时间：<input type="text" data-name="beginTime" />
+    <hr />
+    结束时间：<input type="text" data-name="endTime" />
+    <hr />
+    whyGreen皮肤: skin:'whyGreen' <input id="d322" class="Wdate" type="text" onfocus="WdatePicker({skin:'whyGreen'})" readonly="readonly"/><input id="Text1" class="Wdate" type="text" onfocus="WdatePicker()" readonly="readonly"/>
+    <hr />
+    限制日期的范围<input id="d411" class="Wdate" type="text" onfocus="WdatePicker({skin:'whyGreen',minDate:'2015-06-01',maxDate:'2015-06-30'})"/>
+    <hr />
+    限制日期的范围是 8:00:00 到 11:30:00
+    <input type="text" class="Wdate" id="d414" onfocus="WdatePicker({dateFmt:'H:mm:ss',minDate:'8:00:00',maxDate:'11:30:00'})"/>
+    <hr />
+    只能选择今天以前的日期(包括今天)
+    <input id="d421" class="Wdate" type="text" onfocus="WdatePicker({skin:'whyGreen',maxDate:'%y-%M-%d'})"/>
+    <hr />
+    使用了运算表达式 只能选择今天以后的日期(不包括今天)
+    <input id="d422" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-#{%d+1}'})"/>
+    <hr />
+    只能选择本月的日期1号至本月最后一天
+    <input id="d423" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-01',maxDate:'%y-%M-%ld'})"/>
+    <hr />
+    只能选择今天7:00:00至明天21:00:00的日期
+    <input id="d424" class="Wdate" type="text" onfocus="WdatePicker({dateFmt:'yyyy-M-d H:mm:ss',minDate:'%y-%M-%d 7:00:00',maxDate:'%y-%M-#{%d+1} 21:00:00'})"/>
+    <hr />
+    使用了运算表达式 只能选择 20小时前 至 30小时后 的日期
+    <input id="d425" class="Wdate" type="text" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm', minDate: '%y-%M-%d #{%H-20}:%m:%s', maxDate: '%y-%M-%d #{%H+30}:%m:%s' })"/>
+    <hr />
+    前面的日期不能大于后面的日期且两个日期都不能大于 2020-10-01
+    合同有效期从  到  
+    <input id="d4311" class="Wdate" type="text" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})"/> 
+    <input id="d4312" class="Wdate" type="text" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})"/>
+
+    注意:
+    两个日期的日期格式必须相同
+    <hr />
+    前面的日期+3天 不能大于 后面的日期
+    日期从  到  
+    <input type="text" class="Wdate" id="d4321" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4322\',{d:-3});}'})"/>
+    <input type="text" class="Wdate" id="d4322" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4321\',{d:3});}'})"/>
+    <hr />
+    前面的日期+3月零2天 不能大于 后面的日期 且 前面日期都不能大于 2020-4-3减去3月零2天 后面日期 不能大于 2020-4-3
+    住店日期从  到  
+    <input type="text" class="Wdate" id="d4331" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4332\',{M:-3,d:-2})||$dp.$DV(\'2020-4-3\',{M:-3,d:-2})}'})"/>
+    <input type="text" class="Wdate" id="d4332" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4331\',{M:3,d:2});}',maxDate:'2020-4-3'})"/>
+    <hr />
+    禁用 周六 所对应的日期
+    <input id="d441" type="text" class="Wdate" onFocus="WdatePicker({disabledDays:[6]})"/>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        $('[data-name="begionTime"]').datetimepicker({
+            lang: 'ch',
+            format: 'yyyy-mm-dd hh:ii',
+            step: 15,
+            value:new Date()
+        })
+    })
+</script>

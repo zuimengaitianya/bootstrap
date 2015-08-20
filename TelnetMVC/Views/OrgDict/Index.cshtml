@@ -1,0 +1,59 @@
+﻿@using TelnetMVC.UIControl;
+@model List<TelnetMVC.Entities.OrgDict>
+
+@{
+    ViewBag.Title = "机构设置";
+    Layout = "~/Views/Shared/_BootStrapLayout.cshtml";
+}
+机构
+<hr />
+<input type="button" value="新增机构" class="btn" onclick="CreateOrgDict()" />
+@using (Html.BeginForm()) {
+    <table class="table table-hover">
+        <tr>
+            <th>机构名称</th>
+            <th>机构全称</th>
+            <th>机构英文名称</th>
+            <th>上级机构</th>
+            <th>创建人</th>
+            <th>创建时间</th>
+            <th>修改人</th>
+            <th>修改时间</th>
+        </tr>
+        @foreach (var Item in Model)
+        {
+            <tr onclick="UrlTo('@Item.Id')">
+                <td>@Item.OrgName</td>
+                <td>@Item.OrgAllName</td>
+                <td>@Item.OrgEnglishName</td>
+                <td>@Html.GetOrgDictName(Item.UpOrgId)</td>
+                <td>@Item.Creator</td>
+                <td>@Item.CreateTime</td>
+                <td>@Item.Modify</td>
+                <td>@Item.ModifyTime</td>
+            </tr> 
+        }
+    </table>
+    
+}
+<script type="text/javascript">
+    function CreateOrgDict()
+    {
+        //var url = "/OrgDict/Create";
+        //var data = {  };
+        //FormUtils.postSubmit(url, StringUtils.toJsonString(data));
+        location.href = "/OrgDict/Create";
+    }
+    function UrlTo(Id)
+    {
+        localStorage.orgId = Id;//html5 web存储 关闭浏览器不丢失。
+        sessionStorage.orgId = Id;//html5 web存储 关闭浏览器丢失方式。
+        var url = "/DeptDict/Index";
+        var data = { orgId: Id };
+        FormUtils.postSubmit(url, data);
+
+        //FormUtils.postSubmit(url, StringUtils.toJson(data));
+        //FormUtils.postSubmit(url, StringUtils.toJsonString(data));
+        //location.href = "/DeptDict/Index?orgId=" + url;
+    }
+</script>

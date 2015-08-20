@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TelnetMVCModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TelnetMVCModelStoreContainer">
+          <EntitySet Name="BaseDict" EntityType="TelnetMVCModel.Store.BaseDict" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DeptDict" EntityType="TelnetMVCModel.Store.DeptDict" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrgDict" EntityType="TelnetMVCModel.Store.OrgDict" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Power" EntityType="TelnetMVCModel.Store.Power" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PowerAllot" EntityType="TelnetMVCModel.Store.PowerAllot" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Resources" EntityType="TelnetMVCModel.Store.Resources" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ResourcesAllot" EntityType="TelnetMVCModel.Store.ResourcesAllot" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RoleDict" EntityType="TelnetMVCModel.Store.RoleDict" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="TelnetMVCModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRoleAllot" EntityType="TelnetMVCModel.Store.UserRoleAllot" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="BaseDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="OrgCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="DictName" Type="nvarchar" MaxLength="200" />
+          <Property Name="DictKey" Type="nvarchar" MaxLength="200" />
+          <Property Name="Order" Type="nvarchar" MaxLength="200" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+          <Property Name="DictValue" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="DeptDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="DeptName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrgCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="UpDeptId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OrgDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="OrgName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrgAllName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrgEnglishName" Type="nvarchar" MaxLength="500" />
+          <Property Name="UpOrgId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Power">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="PowerName" Type="nvarchar" MaxLength="200" />
+          <Property Name="PowerCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="PowerGroup" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PowerAllot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="100" />
+          <Property Name="PowerId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Resources">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ResourcesName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ResourcesController" Type="nvarchar" MaxLength="100" />
+          <Property Name="ResourcesFunName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Statu" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ResourcesAllot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="100" />
+          <Property Name="ResourcesId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoleDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="200" />
+          <Property Name="DeptCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+          <Property Name="UpRoleId" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrgCode" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="100" />
+          <Property Name="TrueName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Statu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+          <Property Name="OrgId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserRoleAllot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrgId" Type="nvarchar" MaxLength="100" />
+          <Property Name="DeptId" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="200" />
+          <Property Name="Statu" Type="nvarchar" MaxLength="100" />
+          <Property Name="Modify" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModifyTime" Type="datetime" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TelnetMVCModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TelnetMVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DeptDict" EntityType="TelnetMVCModel.DeptDict" />
+          <EntitySet Name="OrgDict" EntityType="TelnetMVCModel.OrgDict" />
+          <EntitySet Name="Power" EntityType="TelnetMVCModel.Power" />
+          <EntitySet Name="PowerAllot" EntityType="TelnetMVCModel.PowerAllot" />
+          <EntitySet Name="Resources" EntityType="TelnetMVCModel.Resources" />
+          <EntitySet Name="ResourcesAllot" EntityType="TelnetMVCModel.ResourcesAllot" />
+          <EntitySet Name="RoleDict" EntityType="TelnetMVCModel.RoleDict" />
+          <EntitySet Name="User" EntityType="TelnetMVCModel.User" />
+          <EntitySet Name="UserRoleAllot" EntityType="TelnetMVCModel.UserRoleAllot" />
+          <EntitySet Name="BaseDict" EntityType="TelnetMVCModel.BaseDict" />
+        </EntityContainer>
+        <EntityType Name="DeptDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DeptName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="OrgCode" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="UpDeptId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Modify" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OrgDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="OrgName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="OrgAllName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="OrgEnglishName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="UpOrgId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Modify" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Power">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PowerName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="PowerCode" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PowerGroup" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="PowerAllot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="RoleId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PowerId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Modify" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Resources">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ResourcesName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ResourcesController" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ResourcesFunName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Statu" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ResourcesAllot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="RoleId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ResourcesId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Modify" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RoleDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="RoleName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="DeptCode" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Modify" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+          <Property Name="UpRoleId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="OrgCode" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="UserName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="PassWord" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="TrueName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Age" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Statu" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Creator" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Modify" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+          <Property Type="String" Name="OrgId" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserRoleAllot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="UserId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="OrgId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DeptId" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Statu" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Modify" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+          <Property Type="String" Name="RoleId" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BaseDict">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OrgCode" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DictName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DictKey" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Order" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Creator" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreateTime" Precision="3" />
+          <Property Type="String" Name="Modify" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ModifyTime" Precision="3" />
+          <Property Type="String" Name="DictValue" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TelnetMVCModelStoreContainer" CdmEntityContainer="TelnetMVCEntities">
+          <EntitySetMapping Name="DeptDict">
+            <EntityTypeMapping TypeName="TelnetMVCModel.DeptDict">
+              <MappingFragment StoreEntitySet="DeptDict">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="OrgCode" ColumnName="OrgCode" />
+                <ScalarProperty Name="UpDeptId" ColumnName="UpDeptId" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrgDict">
+            <EntityTypeMapping TypeName="TelnetMVCModel.OrgDict">
+              <MappingFragment StoreEntitySet="OrgDict">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+                <ScalarProperty Name="OrgAllName" ColumnName="OrgAllName" />
+                <ScalarProperty Name="OrgEnglishName" ColumnName="OrgEnglishName" />
+                <ScalarProperty Name="UpOrgId" ColumnName="UpOrgId" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Power">
+            <EntityTypeMapping TypeName="TelnetMVCModel.Power">
+              <MappingFragment StoreEntitySet="Power">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PowerName" ColumnName="PowerName" />
+                <ScalarProperty Name="PowerCode" ColumnName="PowerCode" />
+                <ScalarProperty Name="PowerGroup" ColumnName="PowerGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PowerAllot">
+            <EntityTypeMapping TypeName="TelnetMVCModel.PowerAllot">
+              <MappingFragment StoreEntitySet="PowerAllot">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PowerId" ColumnName="PowerId" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resources">
+            <EntityTypeMapping TypeName="TelnetMVCModel.Resources">
+              <MappingFragment StoreEntitySet="Resources">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ResourcesName" ColumnName="ResourcesName" />
+                <ScalarProperty Name="ResourcesController" ColumnName="ResourcesController" />
+                <ScalarProperty Name="ResourcesFunName" ColumnName="ResourcesFunName" />
+                <ScalarProperty Name="Statu" ColumnName="Statu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourcesAllot">
+            <EntityTypeMapping TypeName="TelnetMVCModel.ResourcesAllot">
+              <MappingFragment StoreEntitySet="ResourcesAllot">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ResourcesId" ColumnName="ResourcesId" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleDict">
+            <EntityTypeMapping TypeName="TelnetMVCModel.RoleDict">
+              <MappingFragment StoreEntitySet="RoleDict">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="UpRoleId" ColumnName="UpRoleId" />
+                <ScalarProperty Name="OrgCode" ColumnName="OrgCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="TelnetMVCModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="TrueName" ColumnName="TrueName" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Statu" ColumnName="Statu" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleAllot">
+            <EntityTypeMapping TypeName="TelnetMVCModel.UserRoleAllot">
+              <MappingFragment StoreEntitySet="UserRoleAllot">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="DeptId" ColumnName="DeptId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Statu" ColumnName="Statu" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BaseDict">
+            <EntityTypeMapping TypeName="TelnetMVCModel.BaseDict">
+              <MappingFragment StoreEntitySet="BaseDict">
+                <ScalarProperty Name="DictValue" ColumnName="DictValue" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="Modify" ColumnName="Modify" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="DictKey" ColumnName="DictKey" />
+                <ScalarProperty Name="DictName" ColumnName="DictName" />
+                <ScalarProperty Name="OrgCode" ColumnName="OrgCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

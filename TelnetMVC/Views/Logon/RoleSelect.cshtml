@@ -1,0 +1,22 @@
+﻿@using TelnetMVC.UIControl;
+@using TelnetMVC.Entities;
+@using System.Text;
+@model List<TelnetMVC.Entities.UserRoleAllot>
+@{
+    ViewBag.Title = "RoleSelect";
+    Layout = null;
+    List<DeptDict> deptdict=(List<DeptDict>)ViewData["Dept"];
+}
+<style type="text/css">
+    ul {
+        
+    }
+</style>
+<ul>
+    @foreach (var Item in Model)
+    {
+        <li>@Html.GetDeptDictName(Item.DeptId)/@Html.GetRoleDictName(Item.RoleId)/@Html.GetUserName(Item.UserId)</li> 
+    }
+</ul>
+
+

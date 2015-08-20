@@ -1,0 +1,70 @@
+﻿@using TelnetMVC.UIControl;
+
+@model TelnetMVC.Entities.DeptDict
+
+@{
+    ViewBag.Title = "新增科室";
+    Layout = "~/Views/Shared/_BootStrapLayout.cshtml";
+    string orgId = (string)ViewData["OrgId"];
+}
+
+
+@using (Html.BeginForm("Create","DeptDict",FormMethod.Post,new { Id="NewDeptForm", Class = "form-horizontal center" }))
+{
+    <div class="form-group">
+        <h2><label class="col-md-12" style="font-size:24px;text-align:center;">新增科室</label></h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label class="col-md-2 control-label" style="text-align:right;">科室名称</label>
+        <div class="col-md-2">
+            <input type="text" id="DeptName" name="DeptName" class="form-control" />
+        </div>
+        <label class="col-md-2 control-label" style="text-align:right;">上级科室</label>
+        <div class="col-md-2">
+            <input type="text" id="UpDeptId" name="UpDeptId" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            @Html.GetOrgDictList(orgId,new { Class="form-control" })
+            <input type="hidden" id="OrgCode" name="OrgCode" value="@orgId" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-9"></div>
+        <div class="col-md-3"><button type="button" class="btn btn-success" onclick="createDeptDict()">提交</button></div>
+    </div>
+}
+<script type="text/javascript">
+    $().ready(function () {
+        //myTips("提交成功！", "success");
+    })
+    function createDeptDict()
+    {
+        $.ajax({
+            type: "post",
+            url: "/DeptDict/NewCreate",
+            //data: { 'dataItem': encodeURI(JSON.stringify($("#NewOrgForm").serializeArray())) },
+            data: $("#NewDeptForm").serializeArray(),
+            dataType: "json",
+            error: function (ee) {
+            },
+            success: function (result) {
+                if (result == "Error") {
+                }
+                else {
+                    myTips("提交成功！", "success");
+                    var temp = setTimeout(function () {
+                        location.href = "/DeptDict/Index?orgId="+"@orgId";
+                    }, 2000);
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,70 @@
+﻿@using TelnetMVC.UIControl;
+@model List<TelnetMVC.Entities.DeptDict>
+
+@{
+    ViewBag.Title = "科室设置";
+    Layout = "~/Views/Shared/_BootStrapLayout.cshtml";
+    string orgId = (string)ViewData["OrgId"];
+}
+<a href="/OrgDict/Index">机构</a><span style="color:blue;"> > </span>科室
+<hr />
+<input type="button" value="新增科室" class="btn" onclick="CreateDeptDict()" />
+@using (Html.BeginForm()) {
+    <table class="table table-hover">
+        <tr>
+            <th>所属机构</th>
+            <th>科室名称</th>
+            <th>上级科室</th>
+            <th>创建人</th>
+            <th>创建时间</th>
+            <th>修改人</th>
+            <th>修改时间</th>
+        </tr>
+        @foreach (var Item in Model)
+        {
+            <tr ondblclick="UrlTo('@Item.Id')">
+                <td>@Html.GetOrgDictName(Item.OrgCode)</td>
+                <td>@Item.DeptName</td>
+                <td>@Item.UpDeptId</td>
+                <td>@Item.Creator</td>
+                <td>@Item.CreateTime</td>
+                <td>@Item.Modify</td>
+                <td>@Item.ModifyTime</td>
+            </tr> 
+        }
+    </table>
+}
+<script type="text/javascript">
+    $().ready(function () {
+
+        //$.ajax({
+        //    type: "post",
+        //    url: "/OrgDict/setOrgName",
+        //    //data: { 'dataItem': encodeURI(JSON.stringify($("#NewOrgForm").serializeArray())) },
+        //    data: { orgId: $("#orgname").html() },
+        //    dataType: "text",
+        //    error: function (ee) {
+        //    },
+        //    success: function (result) {
+        //        if (result == "Error") {
+        //        }
+        //        else {
+        //            $("#orgname").html(result);
+        //        }
+        //    }
+        //});
+    })
+    function CreateDeptDict()
+    {
+        //location.href = "/DeptDict/Create?orgId=" + "@orgId";
+        var url = "/DeptDict/Create";
+        var data = { orgId: "@orgId" };
+        FormUtils.postSubmit(url, data);
+    }
+    function UrlTo(deptId) {
+        //location.href = "/RoleDict/Index?deptId=" + url;
+        var url = "/RoleDict/Index";
+        var data = { deptId: deptId };
+        FormUtils.postSubmit(url, data);
+    }
+</script>

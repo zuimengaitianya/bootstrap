@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>日期控件</title>
+    <link href="../Scripts/DateTimePicker/jquery.datetimepicker.css" rel="stylesheet" />
+    <script src="../Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../Scripts/DateTimePicker/jquery.datetimepicker.js"></script>
+    
+</head>
+<body>
+    Start<input type="text" id="date_timepicker_start" />
+    End<input type="text" id="date_timepicker_end" />
+</body>
+</html>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery('#date_timepicker_start').datetimepicker({
+            format: 'Y/m/d H:i',
+            //format: 'Y/m/d',
+            value:new Date(),
+            lang: 'ch',
+            onShow: function (ct) {
+                this.setOptions({
+                    maxDate: jQuery('#date_timepicker_end').val() ? jQuery('#date_timepicker_end').val() : false
+                })
+            },
+            //timepicker: false,
+            step:15
+        });
+        jQuery('#date_timepicker_end').datetimepicker({
+            format: 'Y/m/d H:i',
+            lang: 'ch',
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: jQuery('#date_timepicker_start').val() ? jQuery('#date_timepicker_start').val() : false
+                })
+            },
+            //timepicker: false,
+            step:15
+        });
+    });
+</script>

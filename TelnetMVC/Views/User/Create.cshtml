@@ -1,0 +1,87 @@
+﻿@using TelnetMVC.UIControl;
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_BootStrapLayout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new { Id = "NewUserForm", Class = "form-horizontal center" }))
+{
+    <div class="form-group">
+        <h2>
+            <label class="col-md-12" style="font-size: 24px; text-align: center;">新增用户</label></h2>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label class="col-md-2 control-label" style="text-align: right;">用户名称</label>
+        <div class="col-md-2">
+            <input type="text" id="UserName" name="UserName" class="form-control" />
+        </div>
+        <label class="col-md-2 control-label" style="text-align: right;">密码</label>
+        <div class="col-md-2">
+            <input type="password" id="PassWord" name="PassWord" class="form-control" />
+        </div>
+        <label class="col-md-2 control-label" style="text-align: right;">重复密码</label>
+        <div class="col-md-2">
+            <input type="password" id="cPassWord" value="" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" style="text-align: right;">真实姓名</label>
+        <div class="col-md-2">
+            <input type="text" id="TrueName" name="TrueName" class="form-control" />
+        </div>
+        <label class="col-md-2 control-label" style="text-align: right;">性别</label>
+        <div class="col-md-2">
+            <select id="Sex" name="Sex" class="form-control">
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+        </div>
+        <label class="col-md-2 control-label" style="text-align: right;">年龄</label>
+        <div class="col-md-2">
+            <input type="hidden" id="Age" name="Age" value="" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" style="text-align: right;">地址</label>
+        <div class="col-md-10">
+            <input type="text" id="Address" name="Address" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-success" onclick="save()">提交</button></div>
+    </div>
+}
+<script type="text/javascript">
+    
+    function save() {
+        $.ajax({
+            type: "post",
+            url: "/User/NewCreate",
+            data: $("#NewUserForm").serializeArray(),
+            dataType: "text",
+            error: function (ee) {
+            },
+            success: function (result) {
+                if (result == "Error") {
+                }
+                else {
+                    myTips("提交成功！", "success");
+                    var temp = setTimeout(function () {
+                        FormUtils.postSubmit("/User/Index", {});
+                    }, 2000);
+                }
+            }
+        });
+    }
+</script>

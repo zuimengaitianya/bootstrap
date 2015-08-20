@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>下载调用</title>
+    <script src="../Scripts/jquery-1.7.1.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    //调用下载
+    function AttachmentDownload(id) {
+        var form = $("<form>");   //定义一个form表单
+        form.attr('style', 'display:none');   //在form表单中添加查询参数
+        form.attr('target', '');
+        form.attr('method', 'post');
+        form.attr('action', "/PubAttachment/Download");
+        var input = $('<input>');
+        input.attr('type', 'hidden');
+        input.attr('name', 'Id');
+        input.attr('value', id);
+        $('body').append(form);  //将表单放置在web中
+        form.append(input);   //将查询参数控件提交到表单上
+        form.submit();   //表单提交
+        
+    }
+</script>

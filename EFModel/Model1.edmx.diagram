@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="50ad28689dc142da843584b96fae855d" Name="关系图1">
+        <EntityTypeShape EntityType="TelnetMVCModel.DeptDict" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.OrgDict" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.Power" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.PowerAllot" Width="1.5" PointX="4.75" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.Resources" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.ResourcesAllot" Width="1.5" PointX="0.75" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.RoleDict" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.User" Width="1.5" PointX="2.75" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.UserRoleAllot" Width="1.5" PointX="2.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TelnetMVCModel.BaseDict" Width="1.5" PointX="4.75" PointY="2" IsExpanded="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

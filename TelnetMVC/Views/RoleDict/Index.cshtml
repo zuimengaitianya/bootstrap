@@ -1,0 +1,174 @@
+﻿@using TelnetMVC.UIControl;
+@model List<TelnetMVC.Entities.RoleDict>
+
+@{
+    ViewBag.Title = "角色设置";
+    Layout = "~/Views/Shared/_BootStrapLayout.cshtml";
+    string deptId = (string)ViewData["DeptId"];
+    string orgId = (string)ViewData["OrgId"];
+}
+<a href="/OrgDict/Index">机构</a><span style="color: blue;"> > </span><a href="/DeptDict/Index">科室</a> <span style="color: blue;">> </span>角色
+<hr />
+<input type="button" value="新增角色" class="btn" onclick="CreateRoleDict()" />
+<input type="button" value="编辑角色" class="btn" onclick="EditRoleDict()" />
+<input type="button" value="用户分发" class="btn" onclick="UserRoleAllotDict()" />
+<input type="button" value="资源分发" class="btn" onclick="RoleResourceAllotDict()" />
+<input type="button" value="权限分发" class="btn" onclick="RolePowerAllotDict()" />
+@using (Html.BeginForm())
+{
+    <table class="table table-hover">
+        <tr>
+            <th>所属科室</th>
+            <th>角色名称</th>
+            <th>上级角色</th>
+            <th>创建人</th>
+            <th>创建时间</th>
+            <th>修改人</th>
+            <th>修改时间</th>
+        </tr>
+        @foreach (var Item in Model)
+        {
+            <tr onclick="selecttr('@Item.Id')">
+                @*<td><label id="deptname" dict="dept">@Item.DeptCode</label></td>*@
+                <td>@Html.GetDeptDictName(Item.DeptCode)</td>
+                <td>@Item.RoleName</td>
+                <td>@Item.UpRoleId</td>
+                <td>@Item.Creator</td>
+                <td>@Item.CreateTime</td>
+                <td>@Item.Modify</td>
+                <td>@Item.ModifyTime</td>
+            </tr> 
+        }
+    </table>
+    
+}
+<!-- Modal -->
+<div class="modal fade" id="UserAllotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">用户分发</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal center">
+                    <div class="form-group" style="padding: 0px;">
+                        <div class="col-sm-6" style="padding-left: 2px; padding-right: 2px;">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="glyphicon glyphicon-ok-circle"> 已分发角色</span>
+                                </div>
+                                <div class="list-group" id="UserAllotLeft">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="padding-left: 2px; padding-right: 2px;">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span class="glyphicon glyphicon-remove-circle"> 未分发角色</span>
+                                </div>
+                                <div class="list-group" id="UserNotAllotRight">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="BaseDictCreate()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var selectRoleId = "";
+    $().ready(function () {
+        $('#UserAllotModal').on('hidden.bs.modal', function (e) {//model隐藏时绑定的事件
+            RemoveAllRow();
+        })
+    })
+    function selecttr(roleId) {
+        selectRoleId = roleId;
+    }
+    function CreateRoleDict() {
+        FormUtils.postSubmit("/RoleDict/Create", { deptId: "@deptId" });
+    }
+    function backDeptIndex() {
+        FormUtils.postSubmit("/DeptDict/Index", { orgId: localStorage.orgId });
+    }
+    //加载数据
+    function UserRoleAllotDict() {
+        if (selectRoleId == "") {
+            myTips('未选中角色！', 'error');
+            return;
+        }
+        else {
+            $('#UserAllotModal').modal('show');//model显示
+            
+            $.ajax({
+                type: "post",
+                url: "/UserAllot/GetUserAllotByRole",
+                //data: { 'dataItem': encodeURI(JSON.stringify($("#NewOrgForm").serializeArray())) },
+                data: { roleId: selectRoleId },
+                dataType: "json",
+                error: function (ee) {
+                },
+                success: function (result) {
+                    if (result == "Error") {
+                    }
+                    else {
+                        $.each(result, function (i, v) {
+                            var sthml = '<a class="list-group-item dataItem" onclick="RemoveNoAllot(this)">' +
+                                v.UserName + '<input type="hidden" value="' + v.Id + '" />' +
+                                '</a>';
+                            $("#UserAllotLeft").append(sthml);
+                        });
+                        $.ajax({
+                            type: "post",
+                            url: "/UserAllot/GetUserNoAllotByRole",
+                            //data: { 'dataItem': encodeURI(JSON.stringify($("#NewOrgForm").serializeArray())) },
+                            data: { roleId: selectRoleId },
+                            dataType: "json",
+                            error: function (ee) {
+                            },
+                            success: function (result) {
+                                if (result == "Error") {
+                                }
+                                else {
+                                    $.each(result, function (i, v) {
+                                        var sthml = '<a class="list-group-item dataItem" onclick="RemoveAllot(this)">' +
+                                            v.UserName + '<input type="hidden" value="' + v.Id + '" />' +
+                                            '</a>';
+                                        $("#UserNotAllotRight").append(sthml);
+                                    })
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+        }
+    }
+    //平移分配到右边
+    function RemoveNoAllot(o) {
+        $("#UserAllotLeft").find(o).remove();
+        $(o).attr("onclick", "RemoveAllot(this)");
+
+        $("#UserNotAllotRight").append(o);
+    }
+    //平移分配到左边
+    function RemoveAllot(o) {
+        $("#UserNotAllotRight").find(o).remove();
+        $(o).attr("onclick", "RemoveNoAllot(this)");
+
+        $("#UserAllotLeft").append(o);
+    }
+    //移除所有数据
+    function RemoveAllRow() {
+        $("#UserAllotLeft").find(".dataItem").remove();
+        $("#UserNotAllotRight").find(".dataItem").remove();
+    }
+</script>

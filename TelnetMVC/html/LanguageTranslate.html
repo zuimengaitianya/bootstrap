@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>多语言对照</title>
+    <script src="../Scripts/jquery-1.11.3.min.js"></script>
+    <script src="../Scripts/common/LanguageTranslateComm.js"></script>
+    <script type="text/javascript">
+        var str = "保存";
+        str = str.Translate();
+        $("#label1").html(str);
+        console.log(str);
+</script>
+</head>
+<body Translate-a>
+    <label>保存</label><br />
+    <hr />
+    <label dict>保存</label><br />
+    <label dict="1">保存</label><br />
+    <label dict="2">保存</label><br />
+    <label id="label1"></label><br />
+    <label id="label2"></label><br />
+    <hr />
+    <label>提交</label><br />
+    <hr />
+    <label dict>提交</label>
+    <hr />
+    <span>角色<label style="color:red;">部门</label><label style="color:red;">部门<span>角色</span></label></span><hr />
+    <tranlat>角色 345 部门</tranlat><hr />
+    <input type="text" placeholder="占位符" value="旷工 450分钟" />
+</body>
+</html>
+

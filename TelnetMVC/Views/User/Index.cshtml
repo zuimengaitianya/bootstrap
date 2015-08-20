@@ -1,0 +1,116 @@
+﻿@using TelnetMVC.UIControl;
+@model List<TelnetMVC.Entities.User>
+
+@{
+    ViewBag.Title = "用户设置";
+    Layout = "~/Views/Shared/_BootStrapLayout.cshtml";
+}
+<a href="/OrgDict/Index">机构</a><span style="color:blue;"> > </span>用户
+<hr />
+<input type="button" value="新增用户" class="btn" onclick="CreateUser()" />
+<input type="button" value="编辑用户" class="btn" onclick="EditUser()" />
+<input type="button" value="角色分发" class="btn" onclick="RoleAllot()" />
+@using (Html.BeginForm()) {
+    <table class="table table-hover">
+        <tr>
+            <th>所属机构</th>
+            <th>用户名称</th>
+            <th>真实姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>电话</th>
+            <th>地址</th>
+            <th>状态</th>
+            <th>创建人</th>
+            <th>创建时间</th>
+            <th>修改人</th>
+            <th>修改时间</th>
+        </tr>
+        @foreach (var Item in Model)
+        {
+            <tr onclick="UserSelect('@Item.Id')" >
+                <td>@Html.GetOrgDictName(Item.OrgId)</td>
+                <td>@Item.UserName</td>
+                <td>@Item.TrueName</td>
+                <td>@Html.GetBaseDictName(Item.Sex,"SexDict")</td>
+                <td>@Item.Age</td>
+                <td>@Item.Phone</td>
+                <td title="@Item.Address">@{string str = ""; if (Item.Address.Length > 5) { str = Item.Address.Substring(0,5) + "..."; } else { str = Item.Address; }}@str</td>
+                <td>@Item.Statu</td>
+                <td>@Item.Creator</td>
+                <td>@Item.CreateTime</td>
+                <td>@Item.Modify</td>
+                <td>@Item.ModifyTime</td>
+            </tr> 
+        }
+    </table>
+    
+}
+
+<!-- Modal -->
+<div class="modal fade" id="UserAllotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width: 250px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">角色分发</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="BaseDictNewForm">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">角色</label>
+                        <div class="col-md-6">
+                            <input type="text" readonly="readonly" class="form-control" value="" />
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="BaseDictCreate()" >保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var UserSelectId = "";
+    function CreateUser()
+    {
+        FormUtils.postSubmit("/User/Create", { orgId: localStorage.OrgId });
+    }
+    function EditUser(Id)
+    {
+        FormUtils.postSubmit("/User/Edit", { userId: Id });
+    }
+    function UserSelect(Id)
+    {
+        UserSelectId = Id;
+        $.ajax({
+            type: "post",
+            url: "/RoleDict/RoleAllotUser",
+            data: { userId: UserSelectId },
+            dataType: "text",
+            error: function (ee) {
+            },
+            success: function (result) {
+                if (result == "Error") {
+                }
+                else {
+                    $("#BaseDictModal").modal('hide');
+                    location.reload();
+                }
+            }
+        });
+    }
+    function RoleAllot()
+    {
+        if (UserSelectId == "") {
+            myTips('未选中用户！', 'error')
+        }
+        else {
+            $('#UserAllotModal').modal('show')
+        }
+    }
+</script>

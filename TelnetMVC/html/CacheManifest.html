@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+<html manifest="demo.appcache" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>html5 应用缓存</title>
+</head>
+<body>
+    下面的例子展示了带有 cache manifest 的 HTML 文档（供离线浏览）：
+    如需启用应用程序缓存，请在文档的 html 标签中包含 manifest 属性：
+    每个指定了 manifest 的页面在用户对其访问时都会被缓存。如果未指定 manifest 属性，则页面不会被缓存（除非在 manifest 文件中直接指定了该页面）。
+    manifest 文件的建议的文件扩展名是：".appcache"。
+    请注意，manifest 文件需要配置正确的 MIME-type，即 "text/cache-manifest"。必须在 web 服务器上进行配置。
+</body>
+</html>

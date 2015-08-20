@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
+        You browser does not support the canvas element.
+    </canvas>
+</body>
+</html>
+<script type="text/javascript">
+    var c = document.getElementById("myCanvas");
+    var cxt = c.getContext("2d");
+    //cxt.fillStyle = "#FF0000";
+    //cxt.fillRect(0, 0, 150, 75);
+
+    cxt.moveTo(10, 10);
+    cxt.lineTo(150, 50);
+    cxt.lineTo(10, 50);
+    cxt.stroke();
+
+    cxt.fillStyle = "#FF0000";
+    cxt.beginPath();
+    cxt.arc(70, 18, 15, 0, Math.PI * 2, true);
+    cxt.closePath();
+    cxt.fill();
+
+    //var grd = cxt.createLinearGradient(0, 0, 175, 50);
+    //grd.addColorStop(0, "#FF0000");
+    //grd.addColorStop(1, "#00FF00");
+    //cxt.fillStyle = grd;
+    //cxt.fillRect(0, 0, 175, 50);
+
+    //var img = new Image()
+    //img.src = "flower.png"
+    //cxt.drawImage(img, 0, 0);
+</script>

@@ -1,0 +1,259 @@
+﻿@using TelnetMVC.UIControl;
+@model List<TelnetMVC.Entities.BaseDict>
+
+@{
+    ViewBag.Title = "字典设置";
+    Layout = "~/Views/Shared/_BootStrapLayout.cshtml";
+}
+<a href="/OrgDict/Index">机构</a><span style="color:blue;"> > </span>字典
+<hr />
+<input type="button" value="新增字典" class="btn" data-toggle="modal" data-target="#BaseDictModal" />
+@using (Html.BeginForm())
+{
+    <table class="table table-hover">
+        <tr>
+            <th>所属机构</th>
+            <th>字典名称</th>
+            <th>键</th>
+            <th>值</th>
+            <th>排序</th>
+            <th>创建人</th>
+            <th>创建时间</th>
+            <th>修改人</th>
+            <th>修改时间</th>
+        </tr>
+        @foreach (var Item in Model)
+        {
+            <tr>
+                <td>@Html.GetOrgDictName(Item.OrgCode)</td>
+                <td>@Item.DictName</td>
+                <td>@Item.DictKey</td>
+                <td>@Item.DictValue</td>
+                <td>@Item.Order</td>
+                <td>@Html.GetUserName(Item.Creator)</td>
+                <td>@Item.CreateTime</td>
+                <td>@Item.Modify</td>
+                <td>@Item.ModifyTime</td>
+            </tr> 
+        }
+    </table>
+    
+    <div class="col-lg-12" style="margin-top: 10px;">
+        <div id="selectResult">
+            <table id="SearchResultShow" class="table table-condensed table-hover" style="border-top: 1px #aaa solid; border-bottom: 1px #aaa solid; margin-top: 10px;">
+            </table>
+        </div>
+        <div>
+            <div style="float: left; margin-top: -24px;">
+                <ul class="pagination"></ul>
+            </div>
+            <div>
+                <h6><span id="jumpPageGroup" hidden="hidden">跳转到<input id="jumpToPage" type="text" onkeyup="javascript:if(event.keyCode==13){jumpToThePage();}" value="1" style="width: 30px;" />页&nbsp&nbsp<input type="button" onclick="jumpToThePage();" value="跳转" />&nbsp&nbsp&nbsp</span><span id="selectResultCount" style="color: red">0</span>&nbsp 条记录&nbsp&nbsp 共&nbsp<span id="selectResultPage" style="color: red">0</span>&nbsp 页</h6>
+            </div>
+        </div>
+    </div>
+}
+<!-- Modal -->
+<div class="modal fade" id="BaseDictModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width: 860px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">字典新增</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="BaseDictNewForm">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">所属机构</label>
+                        <div class="col-md-2">
+                            <input type="text" readonly="readonly" class="form-control" value="" />
+                        </div>
+                        <label class="col-md-1 control-label">字典名称</label>
+                        <div class="col-md-2">
+                            <input type="text" id="DictName" name="DictName" class="form-control" />
+                        </div>
+                        <label class="col-md-1 control-label">键</label>
+                        <div class="col-md-2">
+                            <input type="text" id="DictKey" name="DictKey" class="form-control" />
+                        </div>
+                        <label class="col-md-1 control-label">值</label>
+                        <div class="col-md-2">
+                            <input type="text" id="DictValue" name="DictValue" class="form-control" />
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="BaseDictCreate()" >保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        searchCompetenceList(1);
+    })
+    function BaseDictCreate()
+    {
+        $.ajax({
+            type: "post",
+            url: "/BaseDict/Create",
+            data: $("#BaseDictNewForm").serializeArray(),
+            dataType: "text",
+            error: function (ee) {
+            },
+            success: function (result) {
+                if (result == "Error") {
+                }
+                else {
+                    $("#BaseDictModal").modal('hide');
+                    location.reload();
+                }
+            }
+        });
+    }
+    function CreateRoleDict() {
+        FormUtils.postSubmit("/BaseDict/Create", { orgId: localStorage.orgId });
+    }
+
+    /*
+        搜索
+        */
+    function searchCompetenceList(pageSave) {
+        $("#Loading").show();
+        $.ajax({
+            type: "post",
+            url: "/BaseDict/GetBaseDictByPage",
+            data: {  "pageIndex": pageSave, "selectValue": $("#selectValue").val() },
+            dataType: "json",
+            error: function (ee) {
+                $("#Loading").hide();
+            },
+            success: function (result) {
+                $("#Loading").hide();
+                if (result.Success) {
+                    var pageCount = Math.ceil(result.Total / 3);
+                    $("#selectResultPage").html(pageCount);
+                    $("#selectResultCount").html(result.Total);
+                    //表头
+                    var html = '<thead><tr><th style="width:50px;text-align:center;">序号</th><th style="word-wrap:break-word;padding-right:50px;padding-left:50px;">所属机构</th><th style="text-align:center;">字典名称</th><th style="text-align:center;">键</th><th style="text-align:center;">值</th><th style="text-align:center;">排序</th><th style="text-align:center;">创建人</th><th style="text-align:center;">创建时间</th><th style="text-align:center;">删除</th></tr></thead><tbody>';
+                    //表单
+                    for (var k = 0; k < result.Data.length; k++) {
+                        html += '<tr data-competenceId="' + result.Data[k].Id + '"><td style="width:50px;text-align:center;">' + (k + 1) + '</td>' +
+                            '<td style="width:20%;word-wrap:break-word;padding-right:50px;padding-left:50px;">' + result.Data[k].OrgCode +
+                            '</td><td style="text-align:center;">' + result.Data[k].DictName +
+                            '</td><td style="text-align:center;">' + result.Data[k].createTime + '</td>'
+                        + '<td style="text-align:center;"><a onclick="deleteFirstClick(this)"><span class="glyphicon glyphicon-remove"></span></a></td></tr>';
+                    }
+                    html += "</tbody>";
+                    $("#SearchResultShow").html(html);
+                    Pagination(pageSave, pageCount);
+                }
+            }
+        });
+    }
+
+    /*
+    分页
+    */
+    function Pagination(pageSave, pageCount) {
+        //总页数若超过一页
+        var workHtml = "";
+        if (pageCount > 1) {
+            $("#jumpPageGroup").show();
+            workHtml = '<li><a  data-index="start" onclick="paginationClick(this);"><span class="glyphicon glyphicon-fast-backward"></span></a></li><li><a  data-index="left" onclick="paginationClick(this);"><span class="glyphicon glyphicon-chevron-left"></a></li>';
+            //总页数不足5页
+            if (pageCount <= 5) {
+                for (var i = 1; i <= pageCount; i++) {
+                    workHtml += '<li';
+                    if (i == pageSave)
+                        workHtml += ' class="active"';
+                    workHtml += '><a data-index="' + i + '" class="selectPage" onclick="paginationClick(this);">' + i + '<span class="sr-only"></span></a></li>';
+                }
+            }
+                //总页数超过5页
+            else {
+                //点击页码小于3页
+                if (pageSave < 3) {
+                    for (var i = 1; i < 6; i++) {
+                        workHtml += '<li';
+                        if (i == pageSave)
+                            workHtml += ' class="active"';
+                        workHtml += '><a data-index="' + i + '" onclick="paginationClick(this);">' + i + '<span class="sr-only"></span></a></li>';
+                    }
+                }
+                    //点击页码与总页数差值小于3页
+                else if (pageSave > pageCount - 2) {
+                    for (var i = 1; i < 6; i++) {
+                        workHtml += '<li';
+                        if (i == 5 - (pageCount - pageSave))
+                            workHtml += ' class="active"';
+                        workHtml += '><a data-index="' + (pageCount - 5 + i) + '" onclick="paginationClick(this);">' + (pageCount - 5 + i) + '<span class="sr-only"></span></a></li>';
+                    }
+                }
+                    //页码处于中间段
+                else {
+                    for (var i = 1; i < 6; i++) {
+                        workHtml += '<li';
+                        if (i == 3)
+                            workHtml += ' class="active"';
+                        workHtml += '><a data-index="' + (pageSave - 3 + i) + '" onclick="paginationClick(this);">' + (pageSave - 3 + i) + '<span class="sr-only"></span></a></li>';
+                    }
+                }
+            }
+            workHtml += '<li><a data-index="right" onclick="paginationClick(this);"><span class="glyphicon glyphicon-chevron-right"></a></li><li><a  data-index="end" onclick="paginationClick(this);"><span class="glyphicon glyphicon-fast-forward"></span></a></li>';
+        }
+        else
+            $("#jumpPageGroup").hide();
+        $(".pagination").html(workHtml);
+    }
+
+    /*
+    * 分页按钮单击事件
+    */
+    function paginationClick(obj) {
+        var index = $(obj).attr("data-index");
+        var pageSave = parseInt($(".active").children().text())
+        //到首页
+        if (index == "start") {
+            pageSave = 1;
+        }
+            //到末页
+        else if (index == "end") {
+            pageSave = parseInt($("#selectResultPage").text());
+        }
+            //向右一页
+        else if (index == "right") {
+            if (pageSave < parseInt($("#selectResultPage").text()))
+                pageSave++;
+        }
+            //向左一页
+        else if (index == "left") {
+            if (pageSave > 1)
+                pageSave--;
+        }
+            //到点击页
+        else {
+            pageSave = index;
+        }
+        searchCompetenceList(pageSave);
+    }
+
+    /*
+    搜索分页跳转
+    */
+    function jumpToThePage() {
+        if ($("#jumpToPage").val() <= parseInt($("#selectResultPage").text()) && $("#jumpToPage").val() > 0) {
+            var pageSave = $("#jumpToPage").val();
+            searchCompetenceList(pageSave);
+            $("#jumpToPage").val("1");
+        }
+        else {
+            myTips("请输入正确的页数！谢谢~~", "error");
+            $("#jumpToPage").val("1");
+        }
+    }
+
+</script>
