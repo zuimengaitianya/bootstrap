@@ -142,6 +142,28 @@ function TranslateA(languageDict) {
                 v.textContent = TempVal;
             }
         })
+        $("[DeptTranslate]").each(function (k, v) {
+            if (v.tagName == "INPUT") {
+                var Sval = v.value;
+                if (Sval != "") {
+                    $.ajax({
+                        type: "post",
+                        async: false,
+                        url: '/Handle/PunchHandler.ashx',
+                        data: { 'type': 'GetDeptNameEN', 'deptName': Sval },
+                        dataType: "text",
+                        error: function (result) {
+                            console.log(v.value + '部门翻译失败');
+                        },
+                        success: function (result) {
+                            if (result != "" && result != undefined) {
+                                v.value = result;
+                            }
+                        }
+                    });
+                }
+            }
+        })
     }
 }
 function TranslateChine() {
@@ -408,7 +430,7 @@ String.prototype.TranslateAll = function (Sorder) {
             var TempVal = "";
             var TempStr = "";
             var Sval = me.toString();
-
+            var isTanslate = false;
             $.each(dict, function (a1, b1) {
                 if (b1.Key == Sval) {
                     TempVal = b1.Value;
@@ -416,8 +438,12 @@ String.prototype.TranslateAll = function (Sorder) {
                     return false;
                 }
             })
-
-            return TempVal;
+            if (isTanslate) {
+                return TempVal;
+            }
+            else {
+                return me.toString();
+            }
         }
         else {
             return me.toString();
